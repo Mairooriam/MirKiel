@@ -5,7 +5,6 @@ TabWidth: 4
 UseTab: Never
 ColumnLimit: 100
 AccessModifierOffset: -4
-IndentCaseLabels: false
 NamespaceIndentation: All
 FixNamespaceComments: true
 BraceWrapping:
@@ -25,3 +24,5 @@ BreakBeforeBraces: Attach
 SpaceBeforeParens: ControlStatements
 SpaceInEmptyParentheses: false
 SpacesInParentheses: false
+AllowShortCaseLabelsOnASingleLine: true
+IndentCaseLabels: true
