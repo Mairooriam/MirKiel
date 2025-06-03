@@ -5,7 +5,7 @@
 #include "token.h"
 
 namespace mirkiel {
-    class scanner {
+    class Scanner {
     private:
         std::string m_src;
         std::vector<Token> m_tokens;
@@ -17,10 +17,12 @@ namespace mirkiel {
         char advance();
         void addToken(TokenType type_);
         void addToken(TokenType type_, Literal literal_);
+        bool match(char expected);
+        char peek();
     public: 
-        scanner(const std::string& src_);
+        Scanner(const std::string& src_);
         std::vector<Token> scanTokens();
         
-        ~scanner();
+        ~Scanner();
     };
 }  // namespace mirkiel

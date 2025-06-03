@@ -14,7 +14,7 @@ namespace mirkiel {
     public:
         void error(int line_, std::string msg_);
         void runFile(const std::filesystem::path& path_);
-        void runPromt();
+        void runPrompt();
 
     private:
         bool m_hadError = false;

@@ -5,13 +5,13 @@
 //TODO: at page 77.
     int main(int argc, char const *argv[]) {
         mirkiel::MirKiel mirkiel;
-        if (argc > 1) {
+        if (argc > 2) {
             std::cout << "Usage: MirKiel [script]" << std::endl;
             util::systemExit(64);
-        } else if (argc == 1) {
-            mirkiel.runFile(argv[0]);
+        } else if (argc == 2) {
+            mirkiel.runFile(argv[1]);
         } else {
-            mirkiel.runPromt();
+            mirkiel.runPrompt();
         }
     
         std::cout << "Hello wordl";

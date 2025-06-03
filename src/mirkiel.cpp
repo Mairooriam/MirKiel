@@ -3,7 +3,9 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
-
+#include "utils.h"
+#include "scanner.h"
+#include "token.h"
 namespace mirkiel {
     void MirKiel::runFile(const std::filesystem::path& path_) {
         auto bytes = readFile<std::vector<uint8_t>>(path_);
@@ -13,7 +15,7 @@ namespace mirkiel {
             util::systemExit(65);
     }
 
-    void MirKiel::runPromt() {
+    void MirKiel::runPrompt() {
         std::string line;
 
         for (;;) {
@@ -32,12 +34,12 @@ namespace mirkiel {
         }
     }
     void MirKiel::run(const std::string& src_) {
-        //Scanner scanner(src_);
-        //std::vector<Token> tokens = scanner.scanTokens();
+        Scanner scanner(src_);
+        std::vector<Token> tokens = scanner.scanTokens();
 
-        //for (auto&& token : tokens) {
-        //    std::cout << token << "\n";
-        //}
+        for (auto&& token : tokens) {
+           std::cout << token << "\n";
+        }
     }
 
     void MirKiel::error(int line_, std::string msg_) {
@@ -50,8 +52,7 @@ namespace mirkiel {
 
     void MirKiel::report(int line_, std::string where_, std::string msg_) {
         std::cout << "[Line " + std::to_string(line_) + "] Error" + where_ + "; " + msg_ << "\n";
-        // TODO: add had error when making into class
-        //  m_hadError = true;
+         m_hadError = true;
     }
 
     template <typename Container>

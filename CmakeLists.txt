@@ -23,6 +23,8 @@ set(SOURCES
 set(HEADERS
   src/utils.h
   src/tokentype.h
+  src/scanner.h
+  src/token.h
 )
 
 include_directories(include)
