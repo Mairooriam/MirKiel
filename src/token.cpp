@@ -1,5 +1,5 @@
 #include "token.h"
-
+#include <iomanip> 
 
 namespace mirkiel {
     struct VariantPrinter {
@@ -19,7 +19,9 @@ namespace mirkiel {
     Token::~Token() {}
 
     std::ostream& operator<<(std::ostream& os, const Token& token) {
-        os << token.getType() << " " << token.getLexeme() << " " << token.getLiteral();
+        os << "["   << token.getType() << "] ";
+        os  << "( " << token.getLexeme() << " )";
+        os  << " - " << token.getLiteral();
         return os; 
     }
 }  // namespace mirkiel

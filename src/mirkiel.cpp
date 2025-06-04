@@ -34,7 +34,7 @@ namespace mirkiel {
         }
     }
     void MirKiel::run(const std::string& src_) {
-        Scanner scanner(src_);
+        Scanner scanner(src_, this);
         std::vector<Token> tokens = scanner.scanTokens();
 
         for (auto&& token : tokens) {
@@ -51,7 +51,7 @@ namespace mirkiel {
     MirKiel::~MirKiel() {}
 
     void MirKiel::report(int line_, std::string where_, std::string msg_) {
-        std::cout << "[Line " + std::to_string(line_) + "] Error" + where_ + "; " + msg_ << "\n";
+        std::cout << "[L:" + std::to_string(line_) + "] Error" + where_ + "; " + msg_ << "\n";
          m_hadError = true;
     }
 
