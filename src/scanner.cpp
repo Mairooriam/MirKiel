@@ -1,36 +1,32 @@
 #include "scanner.h"
 
+#include <cctype>
 #include <iostream>
 
 #include "utils.h"
-#include <cctype>
+
 namespace mirkiel {
 
     const std::unordered_map<std::string, TokenType> Scanner::m_keywords = {
-        {"and", TokenType::AND},
-        {"class", TokenType::CLASS},
-        {"else", TokenType::ELSE},
-        {"false", TokenType::FALSE},
-        {"for", TokenType::FOR},
-        {"fun", TokenType::FUN},
-        {"if", TokenType::IF},
-        {"nil", TokenType::NIL},
-        {"or", TokenType::OR},
-        {"print", TokenType::PRINT},
-        {"return", TokenType::RETURN},
-        {"super", TokenType::SUPER},
-        {"this", TokenType::THIS},
-        {"true", TokenType::TRUE},
-        {"var", TokenType::VAR},
-        {"while", TokenType::WHILE}
-    };
-
+        {"and", TokenType::AND},     {"class", TokenType::CLASS},   {"else", TokenType::ELSE},
+        {"false", TokenType::FALSE}, {"for", TokenType::FOR},       {"fun", TokenType::FUN},
+        {"if", TokenType::IF},       {"nil", TokenType::NIL},       {"or", TokenType::OR},
+        {"print", TokenType::PRINT}, {"return", TokenType::RETURN}, {"super", TokenType::SUPER},
+        {"this", TokenType::THIS},   {"true", TokenType::TRUE},     {"var", TokenType::VAR},
+        {"while", TokenType::WHILE}};
 
     bool Scanner::isAtEnd() {
         return m_current >= m_src.length();
     }
 
     void Scanner::scanToken() {
+        // TODO: Add nested comments Page 90.
+        //  Why?
+        /*
+        Most C-style languages (C, C++, Java, JavaScript) do NOT support nested comments by default,
+        which can lead to unexpected behavior when trying to comment out code blocks containing
+        comments.
+        */
         char c = advance();
         switch (c) {
             case '(': addToken(TokenType::LEFT_PAREN); break;
@@ -52,17 +48,17 @@ namespace mirkiel {
             case '\r':
             case '\t': break;
             case '\n': m_line++; break;
-            case '"': string(); break;        
-            default: 
-                if(isdigit(c)){
+            case '"': string(); break;
+            default:
+                if (isdigit(c)) {
                     number();
-                if(isalpha(c)){
-                    identifier();
-                }
-                }else{
+                    if (isalpha(c)) {
+                        identifier();
+                    }
+                } else {
                     m_mirkiel->error(m_line, "Unexpected character.");
                 }
-            break;
+                break;
         }
     }
 
@@ -117,32 +113,34 @@ namespace mirkiel {
             return;
         }
         advance();
-        
-        //TODO: instead of only removing "" add handling for "\n" etc.
+
+        // TODO: instead of only removing "" add handling for "\n" etc.
         std::string value = m_src.substr(m_start + 1, m_current - m_start - 2);
         addToken(TokenType::STRING, value);
     }
     void Scanner::number() {
-        while (isdigit(peek())) advance();
-        
-        if (peek() == '.' && isdigit(peekNext()))
-        {
+        while (isdigit(peek()))
             advance();
 
-            while (isdigit(peek())) advance();
-        }
-        
-        addToken(TokenType::NUMBER, std::stod(m_src.substr(m_start, m_current)));
+        if (peek() == '.' && isdigit(peekNext())) {
+            advance();
 
+            while (isdigit(peek()))
+                advance();
+        }
+
+        addToken(TokenType::NUMBER, std::stod(m_src.substr(m_start, m_current)));
     }
     char Scanner::peekNext() {
-        if (m_current + 1 >= m_src.length()) return '\0';
+        if (m_current + 1 >= m_src.length())
+            return '\0';
         return m_src[m_current + 1];
     }
     void Scanner::identifier() {
-        while (isalnum(peek()))  advance();
+        while (isalnum(peek()))
+            advance();
         std::string str = m_src.substr(m_start, m_current - m_start);
-        
+
         TokenType type;
         auto it = m_keywords.find(str);
         if (it != m_keywords.end()) {
@@ -150,7 +148,7 @@ namespace mirkiel {
         } else {
             type = TokenType::IDENTIFIER;
         }
-        
+
         addToken(type);
     }
     Scanner::Scanner(const std::string& src_, MirKiel* mirkiel_)
