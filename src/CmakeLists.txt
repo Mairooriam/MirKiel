@@ -1,0 +1,32 @@
+# Source directory build configuration
+
+# Core library
+add_library(mirkiel_core
+    scanner.cpp
+    token.cpp
+)
+
+target_include_directories(mirkiel_core 
+    PUBLIC 
+        ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+set(CORE_HEADERS
+    utils.h
+    tokentype.h
+    scanner.h
+    token.h
+    expr.h
+)
+
+target_sources(mirkiel_core PRIVATE ${CORE_HEADERS})
+
+# Executables
+add_executable(mirkiel main.cpp mirkiel.cpp)
+target_link_libraries(mirkiel PRIVATE mirkiel_core)
+
+add_executable(expr_printer exprPrinter.cpp)
+target_link_libraries(expr_printer PRIVATE mirkiel_core)
+
+# Export targets to parent scope for installation
+set(MIRKIEL_TARGETS mirkiel expr_printer mirkiel_core PARENT_SCOPE)

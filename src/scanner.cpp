@@ -75,7 +75,7 @@ namespace mirkiel {
         addToken(type_, nullptr);
     }
 
-    void Scanner::addToken(TokenType type_, Literal literal_) {
+    void Scanner::addToken(TokenType type_, LiteralValue literal_) {
         std::string str = m_src.substr(m_start, m_current - m_start);
         m_tokens.emplace_back(Token(type_, str, literal_, m_line));
     }

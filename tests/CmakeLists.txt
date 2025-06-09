@@ -1,10 +1,22 @@
 set(TEST_SOURCES
     test_main.cpp
+
 )
 
 add_executable(mirkiel_tests ${TEST_SOURCES})
 
-target_link_libraries(mirkiel_tests PRIVATE ${GTEST_LIBRARIES} ${GMOCK_LIBRARIES})
+target_link_libraries(mirkiel_tests 
+    PRIVATE 
+        mirkiel_core 
+       ${GTEST_LIBRARIES} 
+       ${GMOCK_LIBRARIES}
+)
+
+target_include_directories(mirkiel_tests 
+    PRIVATE 
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        ${CMAKE_CURRENT_SOURCE_DIR}/../src
+)
+
 include(GoogleTest)
 gtest_discover_tests(mirkiel_tests)
-add_test(NAME mirkiel_tests COMMAND mirkiel_tests)

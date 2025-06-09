@@ -11,7 +11,7 @@ namespace mirkiel {
         void operator()(const std::string& value) const { os << "\"" << value << "\""; }
     };
 
-    std::ostream& operator<<(std::ostream& os, const Literal& value) {
+    std::ostream& operator<<(std::ostream& os, const LiteralValue& value) {
         std::visit(VariantPrinter{os}, value);
         return os;
     }

@@ -19,7 +19,7 @@ namespace mirkiel {
         void scanToken();
         char advance();
         void addToken(TokenType type_);
-        void addToken(TokenType type_, Literal literal_);
+        void addToken(TokenType type_, LiteralValue literal_);
         bool match(char expected);
         char peek();
         void comment();
