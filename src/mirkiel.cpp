@@ -42,8 +42,19 @@ namespace mirkiel {
         }
     }
 
-    void MirKiel::error(int line_, std::string msg_) {
+    void MirKiel::error(int line_, std::string msg_) {    
         report(line_, "", msg_);
+    }
+
+    void MirKiel::error(Token token, std::string message) {
+        if (token.getType() == TokenType::EOD)
+        {
+            report(token.getLine(), " at end", message);
+
+        }else{
+            report(token.getLine(), " at '" + token.getLexeme() + "'", message);
+        }
+        
     }
 
     MirKiel::MirKiel() {}

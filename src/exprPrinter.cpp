@@ -73,32 +73,32 @@ private:
     }
 };
 
-int main() {
-    auto literal123 = std::make_shared<Literal>(123.0);
-    auto literal4567 = std::make_shared<Literal>(45.67);
+// int main() {
+//     auto literal123 = std::make_shared<Literal>(123.0);
+//     auto literal4567 = std::make_shared<Literal>(45.67);
     
-    // Create the unary expression -123
-    auto unary = std::make_shared<Unary>(
-        Token(TokenType::MINUS, "-", nullptr, 1),
-        std::make_shared<Expr>(literal123)
-    );
+//     // Create the unary expression -123
+//     auto unary = std::make_shared<Unary>(
+//         Token(TokenType::MINUS, "-", nullptr, 1),
+//         std::make_shared<Expr>(literal123)
+//     );
     
-    // Create the grouping (45.67)
-    auto grouping = std::make_shared<Grouping>(
-        std::make_shared<Expr>(literal4567)
-    );
+//     // Create the grouping (45.67)
+//     auto grouping = std::make_shared<Grouping>(
+//         std::make_shared<Expr>(literal4567)
+//     );
     
-    auto binary = std::make_shared<Binary>(
-        std::make_shared<Expr>(unary),
-        Token(TokenType::STAR, "*", nullptr, 1),
-        std::make_shared<Expr>(grouping)
-    );
+//     auto binary = std::make_shared<Binary>(
+//         std::make_shared<Expr>(unary),
+//         Token(TokenType::STAR, "*", nullptr, 1),
+//         std::make_shared<Expr>(grouping)
+//     );
     
-    auto expression = std::make_shared<Expr>(binary);
+//     auto expression = std::make_shared<Expr>(binary);
 
-    AstPrinter printer;
-    std::cout << "AST: " << printer.print(*expression) << std::endl;
-    // Should print: (* (- 123) (group 45.67))
+//     AstPrinter printer;
+//     std::cout << "AST: " << printer.print(*expression) << std::endl;
+//     // Should print: (* (- 123) (group 45.67))
 
-    return 0;
-}
+//     return 0;
+// }

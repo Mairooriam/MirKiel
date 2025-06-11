@@ -2,7 +2,7 @@
 #include <filesystem>
 #include <string>
 #include "utils.h"
-
+#include "token.h"
 namespace mirkiel {
     template <typename Container>
     Container readFile(const std::filesystem::path& path_);
@@ -14,6 +14,7 @@ namespace mirkiel {
         
     public:
         void error(int line_, std::string msg_);
+        void error(Token token, std::string message);
         void runFile(const std::filesystem::path& path_);
         void runPrompt();
 
